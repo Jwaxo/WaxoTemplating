@@ -1,25 +1,31 @@
-//First we get our server all set up.
+//First we get our testing server all set up.
 
 var http = require('http');
 var express = require('express');
 var assert = require('assert');
 var server = express();
 
-var waxoRender = require('./index.js').waxoRender;
+var waxoRender = require('./index.js').waxoRender; //Here's the "engine"
 
 server.configure(function() {
 	server.set('title', 'Tiny Templating Test');
 });
 
-//Parse our template here. The prompt doesn't call for separate files to be
-//loaded, so just use this dummy text.
+//Template to be parsed:
+var template = waxoRender("Hello {{ world }}, how is your {{ weekday }} going?");
+var body = template({
+	world: 'dude'
+	, weekday: 'Tuesday'
+});
+//And that should parse and replace it, so we test:
 
-var body = waxoRender("hello {{ world }} how is your {{ weekday }} going?");
+assert.equal(body,
+	"Hello dude, how is your Tuesday going?",
+	"Templater failed to properly replace!");
 
 //Then load our output into the server and display it.
-
 server.get('/', function (request, response) {
-	response.write(body({world: 'dude', weekday: 'tuesday'}));
+	response.write(body);
 	response.end();
 });
 

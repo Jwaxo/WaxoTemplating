@@ -15,11 +15,13 @@ var waxoRender = function(string) {
 	//Now we search for the variables and put them into our variables array
 	while (chopBit = toChop.exec(string)) {
 		var inArray = false;
+		//We have it chopped, so we make sure it isn't already in the var array
 		for (var i=0;i<variables.length;i++) {
 			if (variables[i] === chopBit) {
 				inArray = true;
 			}
 		}
+		//If it isn't, push it on
 		if(inArray !== true) {
 			variables.push(chopBit);
 		}
