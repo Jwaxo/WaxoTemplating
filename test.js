@@ -7,14 +7,19 @@ var express = require('express');
 var assert = require('assert');
 var server = express();
 
-var waxoRender = require('./index.js'); //Here's the "engine"
+var waxoLanguage = require('waxolanguage'); //Here's the final engine
 
 server.configure(function() {
 	server.set('title', 'Tiny Templating Test');
 });
 
+var waxoCompile = waxoLanguage( {
+	'if': 'IF_STANDIN'
+  , 'for': 'FOR_STANDIN'
+});
+
 //Template to be parsed:
-var template = waxoRender("Hello {{ world }}, how is your {{ weekday }} going, {{ world }}?");
+var template = waxoCompile("Hello {{ world }}, how is your {{ weekday }} going, {{ world }}?");
 var body = template({
 	world: 'dude'
 	, weekday: 'Tuesday'
