@@ -7,29 +7,41 @@ var express = require('express');
 var assert = require('assert');
 var server = express();
 
-var waxoLanguage = require('waxolanguage'); //Here's the final engine
+var waxoLanguage = require('waxolanguage'); //Here's the "real" engine
+//Then we require all of the individual language tags
+var waxoIf = require('waxolanguageif');
+var waxoFor = require('waxolanguagefor');
 
-server.configure(function() {
-	server.set('title', 'Tiny Templating Test');
-});
-
+//Assign the basic parsing tags
 var waxoCompile = waxoLanguage( {
-	'if': 'IF_STANDIN'
-  , 'for': 'FOR_STANDIN'
+	'if': waxoIf
+  , 'for': waxoFor
 });
 
-//Template to be parsed:
-var template = waxoCompile("Hello {{ world }}, how is your {{ weekday }} going, {{ world }}?");
+//Assign our test string, which is a simple HTML and Waxo file
+var testHTML = "<ul>\
+{% for item in items %}\
+    <li>{% if item.okay %}it's okay{% else %}it's not okay{% endif %}</li>\
+{% endfor %}\
+</ul>\
+{{ message }}";
+
+//Parse the whole thing for compilation
+var template = waxoCompile(testHTML);
+
+//And compile our string with the final replacements
 var body = template({
-	world: 'dude'
-	, weekday: 'Tuesday'
+	items: [{okay: true}, {okay: false}]
+  ,	message: 'hello world'
 });
 console.log("Output given as: '" + body + "'");
 //And that should parse and replace it, so we test:
 
+/*
 assert.equal(body,
 	"Hello dude, how is your Tuesday going, dude?",
 	"Templater failed to properly replace!");
+	*/
 
 //Then load our output into the server and display it.
 server.get('/', function (request, response) {
