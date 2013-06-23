@@ -26,14 +26,18 @@ var waxoCompile = waxoLanguage( {
 </ul>\
 {{ message }}";
 */
-var testHTML = "{% if true %}This should appear.{% endif %}";
+var testHTML = "{% if dotpath.thatone eq true %}This should appear.{% else %}That also works.{% endif %}{{ message }}";
 
 //Parse the whole thing for compilation
 var template = waxoCompile(testHTML);
 
 //And compile our string with the final replacements
 var body = template({
-	items: [{okay: true}, {okay: false}]
+	dotpath: {
+		thisone: true
+	  , thatone: false
+	}
+  ,	items: [{okay: true}, {okay: false}]
   ,	message: 'hello world'
 });
 console.log("Output given as: '" + body + "'");
