@@ -1,4 +1,4 @@
-var waxoRender = function(string) {
+module.exports = function(string) {
 
 	var variables = new Array();
 
@@ -44,5 +44,3 @@ var waxoRender = function(string) {
 	
 	return toBeRendered;
 };
-
-exports.waxoRender = waxoRender;

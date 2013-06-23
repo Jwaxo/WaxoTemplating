@@ -1,11 +1,13 @@
 //First we get our testing server all set up.
 
+//Note that this module requires http, express, and assert. It probably doesn't
+//really need express, I just find it simpler.
 var http = require('http');
 var express = require('express');
 var assert = require('assert');
 var server = express();
 
-var waxoRender = require('./index.js').waxoRender; //Here's the "engine"
+var waxoRender = require('./index.js'); //Here's the "engine"
 
 server.configure(function() {
 	server.set('title', 'Tiny Templating Test');
