@@ -14,15 +14,16 @@ server.configure(function() {
 });
 
 //Template to be parsed:
-var template = waxoRender("Hello {{ world }}, how is your {{ weekday }} going?");
+var template = waxoRender("Hello {{ world }}, how is your {{ weekday }} going, {{ world }}?");
 var body = template({
 	world: 'dude'
 	, weekday: 'Tuesday'
 });
+console.log("Output given as: '" + body + "'");
 //And that should parse and replace it, so we test:
 
 assert.equal(body,
-	"Hello dude, how is your Tuesday going?",
+	"Hello dude, how is your Tuesday going, dude?",
 	"Templater failed to properly replace!");
 
 //Then load our output into the server and display it.

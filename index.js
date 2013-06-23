@@ -8,34 +8,26 @@ module.exports = function(string) {
 	//what variables we'll need to be watching out for, and assign them
 	//to their own mini-functions.
 
-	var toChop = /\{\{\s*(\w+)\s*\}\}/g; //How we recognize a template variable
+	var toChop = /(\{\{\s*)(\w+?)(\s*\}\})/g; //How we recognize a template variable
 	var chopBit = null;
 	var teststring = new String();
 	
 	//Now we search for the variables and put them into our variables array
-	while (chopBit = toChop.exec(string)) {
-		var inArray = false;
-		//We have it chopped, so we make sure it isn't already in the var array
-		for (var i=0;i<variables.length;i++) {
-			if (variables[i] === chopBit) {
-				inArray = true;
-			}
-		}
-		//If it isn't, push it on
-		if(inArray !== true) {
-			variables.push(chopBit);
-		}
-		console.log('Adding template variable ' + chopBit[0]);
-	}
+	//I figured out a way to do this without a loop, but couldn't do the
+	//replacement bit without one.
+	chopBits = string.match(toChop); 
+	console.log('Adding template variables ' + chopBits);
 	
 	//And now create the function that will be run after the initial string set
 	var toBeRendered = function(replacements) {
 		console.log('Replacing template variables.')
-		for (var i=0;i<variables.length;i++) {
+		for (var i=0;i<chopBits.length;i++) {
 			//Here we loop through the initial variables and see if that
-			//variable was submitted
-			if(replacements.hasOwnProperty(variables[i][1])) {
-				string = string.replace(variables[i][0],replacements[variables[i][1]]);
+			//variable was submitted, after first chopping the brackets off
+			var shorterBit = chopBits[i].replace(/\{\{\s*(.*?)\s*\}\}/, "$1");
+			console.log("Replacing instance of '" + chopBits[i] + "'.");
+			if(replacements.hasOwnProperty(shorterBit)) {
+				string = string.replace(chopBits[i],replacements[shorterBit]);
 			}
 		}
 		console.log('Template variables replaced.')
