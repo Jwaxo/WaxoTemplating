@@ -26,7 +26,7 @@ var waxoCompile = waxoLanguage( {
 </ul>\
 {{ message }}";
 */
-var testHTML = "{% if dotpath.thatone eq true %}This should appear.{% else %}That also works.{% endif %}{{ message }}";
+var testHTML = "{% if dotpath.thatone eq true %}This should appear. That also works.{% endif %}{{ message }}";
 
 //Parse the whole thing for compilation
 var template = waxoCompile(testHTML);
