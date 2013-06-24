@@ -26,6 +26,8 @@ var testHTML = "<ul>\
 </ul>\
 {{ message }}";
 
+/*var testHTML = "<ul>{% for item in items %}This should appear. That also works.{% endfor %}</ul>{{ message }}";*/
+
 /*var testHTML = "{% if dotpath.thisone eq false %}This should appear.{% else %}That also works.{% endif %}{{ message }}";*/
 
 //Parse the whole thing for compilation
