@@ -7,7 +7,7 @@ var express = require('express');
 var assert = require('assert');
 var server = express();
 
-var waxoLanguage = require('waxolanguage'); //Here's the "real" engine
+var waxoLanguage = require('./index.js'); //Here's the "real" engine
 //Then we require all of the individual language tags
 var waxoIf = require('waxolanguageif');
 var waxoFor = require('waxolanguagefor');
