@@ -15,18 +15,18 @@ var waxoFor = require('waxolanguagefor');
 //Assign the basic parsing tags
 var waxoCompile = waxoLanguage( {
 	'if': waxoIf
-//  , 'for': waxoFor
+  , 'for': waxoFor
 });
 
 //Assign our test string, which is a simple HTML and Waxo file
-/*var testHTML = "<ul>\
-{% for item in items %}\
+var testHTML = "<ul>\
+{% for item in items reversed %}\
     <li>{% if item.okay %}it's okay{% else %}it's not okay{% endif %}</li>\
 {% endfor %}\
 </ul>\
 {{ message }}";
-*/
-var testHTML = "{% if dotpath.thisone eq false %}This should appear.{% else %}That also works.{% endif %}{{ message }}";
+
+/*var testHTML = "{% if dotpath.thisone eq false %}This should appear.{% else %}That also works.{% endif %}{{ message }}";*/
 
 //Parse the whole thing for compilation
 var template = waxoCompile(testHTML);
