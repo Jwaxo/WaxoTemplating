@@ -1,5 +1,7 @@
 module.exports = function(tags) {
 
+	var parser = new Parser(); //Initiate the parser
+	parser.parse(tags);
 
 	waxoCompile = function(string) {
 		
@@ -10,8 +12,7 @@ module.exports = function(tags) {
 		//And now create the function that will be run after the initial string set
 		var toBeRendered = function(replacements) {
 		
-			var parser = new Parser();
-			parser.parse(tags);
+
 			parser.parseTags(replacements);
 			var finalHTML = null;
 			
